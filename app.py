@@ -22,8 +22,6 @@ auth0=oauth.register(
 keycloak = oauth.register(
     name="KEYCLOAK",
     client_id="account",
-    client_secret="1691MG30Fwp8XCX12mk5GHuM1C6S9dwt",
-    server_metadata_url="https://keycloak.staging.e-auth.cloud/realms/jprio_realm1/.well-known/openid-configuration",
     client_kwargs={"scope": "openid profile email"},
 )
 app.secret_key = 'your_secret_key'
