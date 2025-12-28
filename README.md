@@ -3,7 +3,7 @@ Labs oidc
 Utilisation de oauth2 et oidc via une appli Flask
 
 Démarrage app: 
-python app.py
+export FLASK_DEBUG=1;flask run
 
 Providers proposés : 
 # github
