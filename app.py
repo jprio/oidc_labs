@@ -9,21 +9,25 @@ app.config.from_pyfile('app.config')
 oauth = OAuth(app)
 github=oauth.register(
     name='GITHUB'
-    ,    client_kwargs={'scope': 'user:email'}
+    , client_secret=os.getenv('_GITHUB_CLIENT_SECRET')
+    , client_kwargs={'scope': 'user:email'}
 )
 
 auth0=oauth.register(
     name='AUTH0'
-    ,    client_kwargs={'scope': 'openid profile email'}
-    ,    server_metadata_url=f'https://{app.config["AUTH0_DOMAIN"]}/.well-known/openid-configuration'
+    , client_kwargs={'scope': 'openid profile email'}
+    , client_secret=os.getenv('AUTH0_CLIENT_SECRET')
+    , server_metadata_url=f'https://{app.config["AUTH0_DOMAIN"]}/.well-known/openid-configuration'
 
 )
 
 keycloak = oauth.register(
     name="KEYCLOAK",
-    client_id="account",
+    client_secret=os.getenv('KEYCLOAK_CLIENT_SECRET'),
     client_kwargs={"scope": "openid profile email"},
+    server_metadata_url=f'https://{app.config["KEYCLOAK_DOMAIN"]}/.well-known/openid-configuration'
 )
+
 app.secret_key = 'your_secret_key'
 app.config['SESSION_COOKIE_NAME'] = 'flask_oidc_session'
 app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
